@@ -9,7 +9,7 @@ const router = Router();
 router.get("/", (req, res) => {
   const { error } = validateUser(req.body);
   console.log("Get Method for /users route");
-  res.send("Ok mate");
+  res.send("Ok mite");
 });
 
 // For creating a user - staff or admin both

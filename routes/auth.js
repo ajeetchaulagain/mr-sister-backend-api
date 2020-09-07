@@ -34,4 +34,12 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/test", (req, res) => {
+  return res.send("Hello mite. from /test route");
+});
+
+router.post("/posttest", (req, res) => {
+  return res.send("Post request called!!!");
+});
+
 module.exports = router;
