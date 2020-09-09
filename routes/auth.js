@@ -17,13 +17,13 @@ const validate = (req) => {
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
 
-  if (error) return res.status(400).send(`check - ${error.details[0].message}`);
+  if (error) return res.status(400).send(` ${error.details[0].message}`);
 
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) return res.status(400).send("Invalid email or password");
     const validPassword = await bcrypt.compare(
-      req.body.password,
+      req.body.pasword,
       user.password
     );
     if (!validPassword) return res.send(400).send("Invalid email or password");
@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/test", (req, res) => {
-  return res.send("Hello mite. from /test route");
+  return res.send("Hello miteasdfsd hello . from /test route");
 });
 
 router.post("/posttest", (req, res) => {

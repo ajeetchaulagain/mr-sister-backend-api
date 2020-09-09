@@ -2,10 +2,12 @@ const { Router } = require("express");
 const { Invoice, validateInvoice } = require("../models/invoice");
 const { route } = require("./suppliers");
 const { sendEmailToSupplier } = require("../util/sendEmail");
+const moment = require("moment");
 
 const router = Router();
 
 router.post("/", async (req, res) => {
+
   const { error } = validateInvoice(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -36,7 +38,7 @@ router.get("/", async (req, res) => {
     const invoices = await Invoice.find({});
     return res.send(invoices);
   } catch (e) {
-    return res.status(500).send("Internal Server Errro");
+    return res.status(500).send("Internal Server Errror");
   }
 });
 
