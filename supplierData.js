@@ -35,13 +35,6 @@ const datas = [
     expectedDelivery: 4,
   },
   {
-    name: "COMPASSIONATE KITCHENS",
-    phoneNo: 422899122,
-    email: "ACCOUNTS@THECOMPASSIONATEKITCHEN.COM.AU",
-    address: "13/14 THOMOSTOWN ROADD KEILOR PARK 3042",
-    expectedDelivery: 3,
-  },
-  {
     name: "DELTA SALES PL",
     phoneNo: 1300463427,
     email: "INFO@DELTASALES.COM.AU",

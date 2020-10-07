@@ -25,6 +25,10 @@ app.use("/api/suppliers", suppliersRoute);
 app.use("/api/items", itemsRoute);
 app.use("/api/invoices", invoicesRoute);
 
+app.get("/test", (req, res) => {
+  res.send("Hello there. I am checking route");
+});
+
 app.listen(4000, () => {
   console.log("App is listening at port 4000");
 });

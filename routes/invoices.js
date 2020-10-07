@@ -7,7 +7,7 @@ const moment = require("moment");
 const router = Router();
 
 router.post("/", async (req, res) => {
-
+  console.log("In a invoie post route----");
   const { error } = validateInvoice(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
     orderedItems,
   });
 
+  console.log("invoice---------object", invoice);
   // Creating a 8 digit unique reference no
   const reference = invoice._id.toString().substr(15);
   invoice.referenceNo = reference;
@@ -43,7 +44,7 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/:refNo", async (req, res) => {
-  const { invoiceStatus } = req.body;
+  const { invoiceStatus, issueReportedBy } = req.body;
   if (!invoiceStatus) return res.status(400).send("Invalid Invoice Status");
 
   const referenceNo = req.params.refNo;
@@ -53,6 +54,7 @@ router.put("/:refNo", async (req, res) => {
   if (!invoice) return res.status(400).send("Invoice not found!");
 
   invoice.invoiceStatus = invoiceStatus;
+  invoice.issueReportedBy = issueReportedBy;
 
   try {
     const resp = await invoice.save();
@@ -77,7 +79,7 @@ router.delete("/:id", async (req, res) => {
 //Route for reporting a issue
 
 router.put("/report/:refNo", async (req, res) => {
-  const { issueDescription } = req.body;
+  const { issueDescription, issueReportedBy } = req.body;
 
   if (!issueDescription)
     return res.status(400).send("Invalid issueDescription");
@@ -89,6 +91,7 @@ router.put("/report/:refNo", async (req, res) => {
 
   invoice.invoiceStatus = "issue";
   invoice.issueDescription = issueDescription;
+  invoice.issueReportedBy = issueReportedBy;
 
   try {
     const resp = await invoice.save();

@@ -6,10 +6,14 @@ const bcrypt = require("bcrypt");
 const router = Router();
 
 // For getting user information
-router.get("/", (req, res) => {
-  const { error } = validateUser(req.body);
-  console.log("Get Method for /users route");
-  res.send("Ok mite");
+router.get("/", async (req, res) => {
+  console.log("Get Route");
+  try {
+    const user = await User.find({});
+    return res.send(user);
+  } catch (e) {
+    return res.status(500).send("Internal Server");
+  }
 });
 
 // For creating a user - staff or admin both
@@ -43,6 +47,19 @@ router.post("/", async (req, res) => {
   return res
     .header("x-auth-token", token)
     .send(pick(user, ["_id", "email", "firstName", "lastName"]));
+});
+
+// Deleting users
+router.delete("/:id", async (req, res) => {
+  try {
+    const user = await User.findByIdAndRemove(req.params.id);
+    if (!user) return res.status(400).send("User Doesn't Exist");
+    return res.send(user);
+  } catch (e) {
+    console.log("Error Deleting user");
+    return res.status(500).send("Internal Server Error");
+  }
+  // const supplier = await
 });
 
 module.exports = router;

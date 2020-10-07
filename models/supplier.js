@@ -29,6 +29,11 @@ const supplierSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  status: {
+    type: String,
+    required: true,
+    default: "active",
+  },
   items: [itemSchema],
 });
 
@@ -41,6 +46,7 @@ const validateSupplier = (supplier) => {
     email: Joi.string().required().email(),
     phoneNo: Joi.string().required(),
     expectedDelivery: Joi.number().required(),
+    status: Joi.string(),
   });
   return supplierValidationSchema.validate(supplier);
 };

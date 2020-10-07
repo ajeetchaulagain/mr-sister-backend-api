@@ -37,6 +37,31 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/", async (req, res) => {
+  const { error } = validateSupplier(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const { name, email, address, phoneNo, expectedDelivery, status } = req.body;
+  const supplier = await Supplier.findOne({ email: req.body.email });
+  console.log("supplier-", supplier);
+  if (!supplier) return res.status(400).send("Supplier doesn't exist");
+
+  supplier.name = name;
+  supplier.email = email;
+  supplier.address = address;
+  supplier.phoneNo = phoneNo;
+  supplier.expectedDelivery = expectedDelivery;
+  supplier.status = status;
+
+  console.log("Supplier Data from POSTMAN-", supplier);
+  try {
+    await supplier.save();
+    return res.send(supplier);
+  } catch (e) {
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   try {
     const supplier = await Supplier.findByIdAndRemove(req.params.id);

@@ -15,7 +15,7 @@ const sendEmailToSupplier = (supplierEmail, orderedItems) => {
 
   const message = {
     from: "okushal71@gmail.com", // Sender address
-    to: `${supplierEmail}`, // List of recipients
+    to: "kisan8209@gmail.com", // Supplier Email. Later will be supplierEmail
     subject: "Order from Mr. Sister App", // Subject line
     html: "<h1>You have got order from Mr.Sister App</h1>", // Plain text body
   };

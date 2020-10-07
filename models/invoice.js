@@ -9,12 +9,10 @@ const invoiceSchema = new mongoose.Schema({
     required: true,
     maxlength: 50,
   },
-
   orderDate: {
     type: Date,
     default: Date.now(),
   },
-
   supplierEmail: {
     type: String,
     required: true,
@@ -32,6 +30,9 @@ const invoiceSchema = new mongoose.Schema({
     type: String,
   },
   issueDescription: {
+    type: String,
+  },
+  issueReportedBy: {
     type: String,
   },
   orderedItems: [itemCartSchema],
